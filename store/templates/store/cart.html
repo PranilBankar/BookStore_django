@@ -1,0 +1,270 @@
+{% extends "store/base.html" %}
+{% block content %}
+<div class="cart-container">
+    <div class="cart-header">
+        <h2><i class="fas fa-shopping-bag"></i> My Shopping Bag</h2>
+        <div class="cart-stats">
+            <span>{{ books|length }} item{{ books|pluralize }}</span>
+        </div>
+    </div>
+    
+    {% if books %}
+    <div class="cart-items">
+        {% for book in books %}
+        <div class="cart-item">
+            <div class="item-cover">
+                <div class="cover-placeholder">
+                    <i class="fas fa-book-open"></i>
+                </div>
+            </div>
+            <div class="item-details">
+                <h3>{{ book.title }}</h3>
+                <p class="author">By {{ book.author }}</p>
+                <div class="item-meta">
+                    <span class="price">₹{{ book.price }}</span>
+                    <button class="remove-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="cart-summary">
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <span>₹{% widthratio books|length 1 299 %}</span>
+        </div>
+        <div class="summary-row">
+            <span>Shipping</span>
+            <span>Free</span>
+        </div>
+        <div class="summary-row total">
+            <span>Total</span>
+            <span>₹{% widthratio books|length 1 299 %}</span>
+        </div>
+        <button class="checkout-btn">Proceed to Checkout</button>
+    </div>
+    {% else %}
+    <div class="empty-cart">
+        <div class="empty-icon">
+            <i class="fas fa-box-open"></i>
+        </div>
+        <h3>Your bag is empty</h3>
+        <p>Looks like you haven't added anything to your cart yet</p>
+        <a href="{% url 'book_list' %}" class="shop-btn">
+            <i class="fas fa-arrow-left"></i> Continue Shopping
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.cart-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.cart-header h2 {
+    color: #2d3748;
+    font-size: 1.5rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-header h2 i {
+    color: #5e72e4;
+}
+
+.cart-stats {
+    background: #f8f9fa;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #4a5568;
+}
+
+.cart-items {
+    margin-bottom: 2rem;
+}
+
+.cart-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.item-cover {
+    flex-shrink: 0;
+}
+
+.cover-placeholder {
+    width: 70px;
+    height: 90px;
+    background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a0aec0;
+    font-size: 1.5rem;
+}
+
+.item-details {
+    flex-grow: 1;
+}
+
+.item-details h3 {
+    margin: 0 0 6px 0;
+    font-size: 1.1rem;
+    color: #2d3748;
+    font-weight: 600;
+}
+
+.author {
+    color: #718096;
+    font-size: 0.9rem;
+    margin: 0 0 12px 0;
+}
+
+.item-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    font-weight: 700;
+    color: #2d3748;
+    font-size: 1.1rem;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #a0aec0;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.2s;
+}
+
+.remove-btn:hover {
+    color: #e53e3e;
+}
+
+.cart-summary {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    color: #4a5568;
+}
+
+.summary-row.total {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+    font-weight: 700;
+    color: #2d3748;
+    font-size: 1.1rem;
+}
+
+.checkout-btn {
+    width: 100%;
+    background: #5e72e4;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.checkout-btn:hover {
+    background: #4a5acf;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    color: #cbd5e0;
+    margin-bottom: 1.5rem;
+}
+
+.empty-cart h3 {
+    color: #2d3748;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.3rem;
+}
+
+.empty-cart p {
+    color: #718096;
+    margin: 0 0 1.5rem 0;
+}
+
+.shop-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #5e72e4;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.shop-btn:hover {
+    background: #4a5acf;
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cart-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .cart-item {
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+    
+    .cover-placeholder {
+        width: 60px;
+        height: 80px;
+    }
+}
+</style>
+{% endblock %}

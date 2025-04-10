@@ -1,0 +1,199 @@
+{% extends "store/base.html" %}
+{% block content %}
+<div class="store-wrapper">
+    <div class="store-header">
+        <h1><i class="fas fa-store"></i> Bookstore</h1>
+        <div class="tools">
+            <div class="search-group">
+                <input type="text" placeholder="Search books..." />
+                <i class="fas fa-search"></i>
+            </div>
+            <select class="sort-select">
+                <option>Sort by</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Title: A-Z</option>
+                <option>Title: Z-A</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="book-list">
+        {% for book in books %}
+        <div class="book-item">
+            <div class="book-thumbnail">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="book-info">
+                <h3>{{ book.title }}</h3>
+                <p class="author">by {{ book.author }}</p>
+                <div class="book-details">
+                    <span class="price">₹{{ book.price }}</span>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+                <a href="{% url 'add_to_cart' book.id %}" class="btn-add">
+                    <i class="fas fa-cart-plus"></i> Add to Cart
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .store-wrapper {
+        max-width: 1100px;
+        margin: 2rem auto;
+        padding: 1rem;
+    }
+
+    .store-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+    }
+
+    .store-header h1 {
+        font-size: 2rem;
+        color: #2d3748;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .tools {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .search-group {
+        position: relative;
+    }
+
+    .search-group input {
+        padding: 10px 35px 10px 15px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 0.95rem;
+    }
+
+    .search-group i {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+    }
+
+    .sort-select {
+        padding: 10px 15px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 0.95rem;
+    }
+
+    .book-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+        gap: 2rem;
+    }
+
+    .book-item {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s;
+    }
+
+    .book-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .book-thumbnail {
+        font-size: 3rem;
+        color: #d1d5db;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 150px;
+        background: #f9fafb;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+
+    .book-info h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: #2d3748;
+    }
+
+    .author {
+        font-size: 0.95rem;
+        color: #718096;
+        margin-bottom: 1rem;
+    }
+
+    .book-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .price {
+        font-weight: bold;
+        font-size: 1rem;
+        color: #2d3748;
+    }
+
+    .rating i {
+        color: #f6ad55;
+        font-size: 0.85rem;
+    }
+
+    .btn-add {
+        background-color: #5e72e4;
+        color: #fff;
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: background 0.2s ease;
+    }
+
+    .btn-add:hover {
+        background-color: #4c5bd4;
+    }
+
+    @media (max-width: 600px) {
+        .store-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .tools {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .search-group input,
+        .sort-select {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}

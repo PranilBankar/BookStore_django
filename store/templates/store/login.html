@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: "Poppins", sans-serif;
+          background: linear-gradient(to right, #090113, #a1bdec);
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        }
+    
+        .login-card {
+          background: #de7575;
+          padding: 3rem 2.5rem;
+          border-radius: 16px;
+          box-shadow: 0 20px 40px rgba(200, 17, 17, 0.2);
+          width: 100%;
+          max-width: 420px;
+          animation: fadeIn 0.6s ease-in-out;
+        }
+    
+        @keyframes fadeIn {
+          from {
+            transform: translateY(-20px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+    
+        .login-card h2 {
+          text-align: center;
+          color: #333;
+          margin-bottom: 1.5rem;
+          font-weight: 600;
+        }
+    
+        .form-group {
+          margin-bottom: 1.2rem;
+        }
+    
+        label {
+          display: block;
+          margin-bottom: 6px;
+          color: #555;
+          font-weight: 500;
+        }
+    
+        input[type="text"],
+        input[type="password"] {
+          width: 100%;
+          padding: 10px 14px;
+          border: 1px solid #e28282;
+          border-radius: 8px;
+          font-size: 1rem;
+          transition: border-color 0.3s ease;
+        }
+    
+        input:focus {
+          border-color: #3a5d9b;
+          outline: none;
+        }
+    
+        button {
+          width: 100%;
+          padding: 12px;
+          background-color: #10b856;
+          color: rgb(142, 104, 104);
+          font-size: 1rem;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+    
+        button:hover {
+          background-color: #638bd5;
+        }
+    
+        .extra-links {
+          margin-top: 1rem;
+          text-align: center;
+        }
+    
+        .extra-links a {
+          color: #2575fc;
+          text-decoration: none;
+          font-size: 0.95rem;
+        }
+    
+        .extra-links a:hover {
+          text-decoration: underline;
+        }
+      </style>
+</head>
+<body>
+    {% load static %}
+    
+    {% block content %}
+    <div class="login-container">
+        <div class="login-wrapper">
+            <div class="login-header">
+                <h2>Welcome to Our Bookstore</h2>
+                <p>Sign in to continue your literary journey</p>
+            </div>
+    
+            <div class="login-form-container">
+                {% if form.errors %}
+                <div class="login-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Invalid username or password. Please try again.
+                </div>
+                {% endif %}
+    
+                <form method="post" class="login-form">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="username">
+                            <i class="fas fa-user"></i> Username
+                        </label>
+                        <input type="text" name="username" id="username" required placeholder="Enter your username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">
+                            <i class="fas fa-lock"></i> Password
+                        </label>
+                        <input type="password" name="password" id="password" required placeholder="Enter your password">
+                        <div class="password-toggle">
+                            <i class="fas fa-eye" id="togglePassword"></i>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+    <style>
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+    
+        .login-wrapper {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+        }
+    
+        .login-header {
+            padding: 30px;
+            background:#3a6a9b ;
+            color: white;
+            text-align: center;
+        }
+    
+        .login-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+    
+        .login-header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+    
+        .login-form-container {
+            padding: 30px;
+        }
+    
+        .login-error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+    
+        .login-error i {
+            margin-right: 10px;
+        }
+    
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+    
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+    
+        .form-group label i {
+            margin-right: 8px;
+            color: #6e8efb;
+        }
+    
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+    
+        .form-group input:focus {
+            border-color: #6e8efb;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(110, 142, 251, 0.2);
+        }
+    
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 40px;
+            cursor: pointer;
+            color: #777;
+        }
+    
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #3a6a9b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+    
+        .login-btn:hover {
+            background:#78b4f0;
+            transform: translateY(-2px);
+        }
+    
+        .login-btn i {
+            margin-right: 8px;
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                this.classList.toggle('fa-eye-slash');
+            });
+        });
+    </script>
+    {% endblock %}
+</body>
+</html>

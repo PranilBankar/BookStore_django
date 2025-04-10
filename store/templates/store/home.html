@@ -1,0 +1,6 @@
+{% for book in books %}
+    <h2>{{ book.title }}</h2>
+    <p>{{ book.author }} - ₹{{ book.price }}</p>
+    <a href="{% url 'add_to_cart' book.id %}">Add to Cart</a>
+{% endfor %}
+<a href="{% url 'cart' %}">View Cart</a>
